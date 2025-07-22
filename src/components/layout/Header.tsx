@@ -17,45 +17,49 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-bold">CT</span>
+            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+              <span className="text-primary-foreground text-sm font-bold">
+                CT
+              </span>
             </div>
-            <span className="text-xl font-bold">Charlotte Todd</span>
+            <span className="text-xl font-bold text-foreground">
+              Charlotte Todd
+            </span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/drops"
-              className="text-gray-700 hover:text-black transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
               Drops
             </Link>
             <Link
               to="/products"
-              className="text-gray-700 hover:text-black transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
               Products
             </Link>
             <Link
               to="/about"
-              className="text-gray-700 hover:text-black transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
               About
             </Link>
             <Link
               to={isAuthenticated ? "/account" : "/signin"}
-              className="text-gray-700 hover:text-black transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
               {isAuthenticated ? "My Account" : "Sign In"}
             </Link>
             <Link to="/cart" className="relative">
-              <ShoppingBag className="w-6 h-6 text-gray-700 hover:text-black transition-colors" />
+              <ShoppingBag className="w-6 h-6 text-muted-foreground hover:text-foreground transition-colors" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
@@ -64,16 +68,16 @@ const Header = () => {
 
           <div className="md:hidden flex items-center space-x-4">
             <Link to="/cart" className="relative">
-              <ShoppingBag className="w-6 h-6 text-gray-700" />
+              <ShoppingBag className="w-6 h-6 text-muted-foreground" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
             </Link>
             <button
               onClick={toggleMobileMenu}
-              className="text-gray-700 hover:text-black"
+              className="text-muted-foreground hover:text-foreground"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -85,32 +89,32 @@ const Header = () => {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-100 bg-white">
+          <div className="md:hidden border-t border-border bg-background">
             <nav className="px-4 py-4 space-y-4">
               <Link
                 to="/drops"
-                className="block text-gray-700 hover:text-black transition-colors"
+                className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Drops
               </Link>
               <Link
                 to="/products"
-                className="block text-gray-700 hover:text-black transition-colors"
+                className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Products
               </Link>
               <Link
                 to="/about"
-                className="block text-gray-700 hover:text-black transition-colors"
+                className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About
               </Link>
               <Link
                 to={isAuthenticated ? "/account" : "/signin"}
-                className="block text-gray-700 hover:text-black transition-colors"
+                className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {isAuthenticated ? "My Account" : "Sign In"}

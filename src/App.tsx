@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider, useCart } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import { Toaster } from "./components/ui/toaster";
 import Header from "./components/layout/Header";
 import Homepage from "./components/pages/Homepage";
@@ -18,6 +19,7 @@ import CheckoutSuccessPage from "./components/pages/CheckoutSuccessPage";
 import SignInPage from "./components/pages/SignInPage";
 import SignUpPage from "./components/pages/SignUpPage";
 import AccountPage from "./components/pages/AccountPage";
+import OrdersPage from "./components/pages/OrdersPage";
 import NotFound from "./pages/NotFound";
 import AddedToBagOverlay from "./components/cart/AddedToBagOverlay";
 import Drop42Badge from "./components/ui/Drop42Badge";
@@ -44,6 +46,7 @@ function AppContent() {
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/account/orders" element={<OrdersPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
@@ -62,13 +65,15 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Router>
-          <AppContent />
-        </Router>
-      </CartProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Router>
+            <AppContent />
+          </Router>
+        </CartProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

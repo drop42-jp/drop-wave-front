@@ -14,13 +14,7 @@ const Homepage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const categories = [
-    "All",
-    "Clothing",
-    "Accessories",
-    "Home & Living",
-    "Art & Prints",
-  ];
+  const categories = ["All"];
 
   // Fetch products from Supabase
   useEffect(() => {
@@ -91,11 +85,11 @@ const Homepage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-background">
         <HeroSection />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         </div>
       </div>
@@ -104,15 +98,15 @@ const Homepage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-background">
         <HeroSection />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
-              <p className="text-red-500 mb-4">{error}</p>
+              <p className="text-destructive mb-4">{error}</p>
               <button
                 onClick={() => window.location.reload()}
-                className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/80 transition-colors"
               >
                 Try Again
               </button>
@@ -124,7 +118,7 @@ const Homepage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <HeroSection />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -137,8 +131,8 @@ const Homepage = () => {
                 onClick={() => setSelectedCategory(category)}
                 className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
                   selectedCategory === category
-                    ? "bg-black text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 }`}
               >
                 {category}
@@ -151,12 +145,14 @@ const Homepage = () => {
         <div className="mb-16">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-2">
-              <Clock className="w-5 h-5 text-orange-500" />
-              <h2 className="text-2xl font-bold">Limited-time Drops</h2>
+              <Clock className="w-5 h-5 text-accent-foreground" />
+              <h2 className="text-2xl font-bold text-foreground">
+                Limited-time Drops
+              </h2>
             </div>
             <Link
               to="/drops"
-              className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               View all →
             </Link>

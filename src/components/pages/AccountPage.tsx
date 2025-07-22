@@ -1,13 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { User, Package, MapPin, Settings, LogOut } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../hooks/use-toast";
+import { supabase } from "../../lib/supabase";
 
 const AccountPage = () => {
   const { user, signOut, loading } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [ordersCount, setOrdersCount] = useState<number>(0);
+  const [loadingOrders, setLoadingOrders] = useState(true);
 
   // Redirect to sign in if not authenticated
   if (!loading && !user) {
@@ -53,6 +57,35 @@ const AccountPage = () => {
       });
     }
   };
+
+  const fetchOrdersCount = async () => {
+    if (!user?.id) return;
+
+    try {
+      setLoadingOrders(true);
+      const { count, error } = await supabase
+        .from("track_orders")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", user.id);
+
+      if (error) {
+        console.error("Error fetching orders count:", error);
+        return;
+      }
+
+      setOrdersCount(count || 0);
+    } catch (error) {
+      console.error("Error fetching orders count:", error);
+    } finally {
+      setLoadingOrders(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      fetchOrdersCount();
+    }
+  }, [user?.id]);
 
   // Extract user data
   const firstName =
@@ -147,7 +180,16 @@ const AccountPage = () => {
                 <h3 className="text-sm font-medium text-gray-500">
                   Total Orders
                 </h3>
-                <p className="text-2xl font-bold text-gray-900">0</p>
+                {loadingOrders ? (
+                  <div className="flex items-center">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-400"></div>
+                    <span className="ml-2 text-gray-500">Loading...</span>
+                  </div>
+                ) : (
+                  <p className="text-2xl font-bold text-gray-900">
+                    {ordersCount}
+                  </p>
+                )}
               </div>
               <div className="bg-white p-4 rounded-lg border border-gray-200">
                 <h3 className="text-sm font-medium text-gray-500">
