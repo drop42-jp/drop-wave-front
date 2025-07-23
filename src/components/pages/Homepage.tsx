@@ -7,14 +7,92 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabase";
 import type { Tables } from "../../database.types";
+import { Skeleton } from "../ui/skeleton";
 
 const Homepage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [products, setProducts] = useState<Product[]>([]);
+  const [drops, setDrops] = useState<Drop[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const categories = ["All"];
+
+  // Helper function to determine drop status based on dropdate
+  const getDropStatus = (
+    dropdate: string | null
+  ): "coming-soon" | "live" | "ended" => {
+    if (!dropdate) return "coming-soon";
+
+    const dropDateTime = new Date(dropdate);
+    const now = new Date();
+
+    // If the drop date is in the future, it's coming soon
+    if (dropDateTime > now) {
+      return "coming-soon";
+    }
+
+    // If the drop date is within the last 7 days, it's live
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    if (dropDateTime >= sevenDaysAgo) {
+      return "live";
+    }
+
+    // Otherwise, it's ended
+    return "ended";
+  };
+
+  // Fetch drops from Supabase
+  useEffect(() => {
+    const fetchDrops = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("products")
+          .select("*")
+          .eq("store_id", import.meta.env.VITE_STORE_ID || "")
+          .eq("isdrop", true)
+          .order("dropdate", { ascending: false });
+
+        if (error) throw error;
+
+        // Transform Supabase data to match our Drop interface
+        const transformedDrops: Drop[] = (data as Tables<"products">[]).map(
+          (product) => {
+            const status = getDropStatus(product.dropdate);
+            const drop: Drop = {
+              id: product.id,
+              title: product.name,
+              image: product.image_url || "/placeholder.svg",
+              status,
+              price: product.price,
+            };
+
+            // Add startDate for coming-soon drops or endDate for live drops
+            if (product.dropdate) {
+              const dropDateTime = new Date(product.dropdate);
+              if (status === "coming-soon") {
+                drop.startDate = dropDateTime;
+              } else if (status === "live") {
+                // For live drops, set end date to 7 days after the drop date
+                drop.endDate = new Date(
+                  dropDateTime.getTime() + 7 * 24 * 60 * 60 * 1000
+                );
+              }
+            }
+
+            return drop;
+          }
+        );
+
+        setDrops(transformedDrops);
+      } catch (err) {
+        console.error("Error fetching drops:", err);
+        setError("Failed to load drops");
+      }
+    };
+
+    fetchDrops();
+  }, []);
 
   // Fetch products from Supabase
   useEffect(() => {
@@ -26,8 +104,11 @@ const Homepage = () => {
           .from("products")
           .select("*")
           .eq("store_id", import.meta.env.VITE_STORE_ID || "")
+          .eq("isdrop", false) // Only fetch non-drop products for the products section
           .order("created_at", { ascending: false });
         console.log(data);
+
+        if (error) throw error;
 
         // Transform Supabase data to match our Product interface
         const transformedProducts: Product[] = (
@@ -53,30 +134,6 @@ const Homepage = () => {
 
     fetchProducts();
   }, []);
-
-  // Mock data for drops - you might want to create a drops table in the future
-  const mockDrops: Drop[] = [
-    {
-      id: "premium-tee",
-      title: "Premium Cotton Tee",
-      image: "/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png",
-      status: "coming-soon" as const,
-      startDate: new Date(Date.now() + 8 * 60 * 60 * 1000), // 8 hours from now
-    },
-    {
-      id: "water-bottle",
-      title: "Water Bottle Collection",
-      image: "/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png",
-      status: "live" as const,
-      endDate: new Date(
-        Date.now() +
-          2 * 24 * 60 * 60 * 1000 +
-          14 * 60 * 60 * 1000 +
-          37 * 60 * 1000
-      ), // 2d 14h 37m from now
-      price: 22,
-    },
-  ];
 
   const filteredProducts =
     selectedCategory === "All"
@@ -159,9 +216,29 @@ const Homepage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {mockDrops.map((drop) => (
-              <DropCard key={drop.id} drop={drop} />
-            ))}
+            {drops.length === 0 ? (
+              // Skeleton UI for when no drops are available
+              <>
+                <div className="space-y-4">
+                  <Skeleton className="w-full h-48 rounded-lg" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                    <Skeleton className="h-10 w-32" />
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <Skeleton className="w-full h-48 rounded-lg" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                    <Skeleton className="h-10 w-32" />
+                  </div>
+                </div>
+              </>
+            ) : (
+              drops.map((drop) => <DropCard key={drop.id} drop={drop} />)
+            )}
           </div>
         </div>
 

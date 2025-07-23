@@ -231,9 +231,11 @@ export type Database = {
         Row: {
           created_at: string | null
           description: string | null
+          dropdate: string | null
           id: string
           image_url: string | null
           inventory: number | null
+          isdrop: boolean | null
           name: string
           price: number
           sku: string | null
@@ -243,9 +245,11 @@ export type Database = {
         Insert: {
           created_at?: string | null
           description?: string | null
+          dropdate?: string | null
           id?: string
           image_url?: string | null
           inventory?: number | null
+          isdrop?: boolean | null
           name: string
           price: number
           sku?: string | null
@@ -255,9 +259,11 @@ export type Database = {
         Update: {
           created_at?: string | null
           description?: string | null
+          dropdate?: string | null
           id?: string
           image_url?: string | null
           inventory?: number | null
+          isdrop?: boolean | null
           name?: string
           price?: number
           sku?: string | null
