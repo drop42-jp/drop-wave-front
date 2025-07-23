@@ -22,33 +22,31 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground text-sm font-bold">
-                NP
-              </span>
+              <img src="https://drop42-dev.s3.us-east-1.amazonaws.com/printify-images/800x800-2463523--76df8614-e516-41a0-993ffc88d5295fae--0--443108--surusocialmediaart1.png" alt="NP Logo" className="w-full h-full rounded-full" />
             </div>
             <span className="text-xl font-bold text-foreground">
-              NP T-Shirts
+              NP
             </span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link
-              to="/collections"
+              to="/drops"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Collections
+              Drops
             </Link>
             <Link
               to="/products"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              T-Shirts
+              Products
             </Link>
             <Link
               to="/about"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              About Us
+              About
             </Link>
             <Link
               to={isAuthenticated ? "/account" : "/signin"}
@@ -92,25 +90,25 @@ const Header = () => {
           <div className="md:hidden border-t border-border bg-background">
             <nav className="px-4 py-4 space-y-4">
               <Link
-                to="/collections"
+                to="/drops"
                 className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Collections
+                Drops
               </Link>
               <Link
                 to="/products"
                 className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                T-Shirts
+                Products
               </Link>
               <Link
                 to="/about"
                 className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                About Us
+                About
               </Link>
               <Link
                 to={isAuthenticated ? "/account" : "/signin"}
