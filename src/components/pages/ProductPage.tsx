@@ -36,6 +36,7 @@ const ProductPage = () => {
           .from("products")
           .select("*")
           .eq("id", id)
+          .eq("store_id", import.meta.env.VITE_STORE_ID || "")
           .single();
 
         if (productError) {
@@ -83,6 +84,7 @@ const ProductPage = () => {
         const { data: relatedData, error: relatedError } = await supabase
           .from("products")
           .select("*")
+          .eq("store_id", import.meta.env.VITE_STORE_ID || "")
           .neq("id", id)
           .limit(3);
 

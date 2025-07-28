@@ -1,100 +1,125 @@
 import ProductCard from "../product/ProductCard";
 import { Product } from "../../types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "../../lib/supabase";
+import type { Tables } from "../../database.types";
 
 const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [sortBy, setSortBy] = useState("featured");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const categories = ["All"];
+  // Fetch products from Supabase
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-  const allProducts: Product[] = [
-    {
-      id: "1",
-      name: "Premium Cotton Tee",
-      price: 28,
-      image: "/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png",
-      description: "Soft premium cotton t-shirt with comfortable fit",
-      isNew: true,
-      category: "Clothing",
-    },
-    {
-      id: "2",
-      name: "Stainless Steel Water Bottle",
-      price: 22,
-      image: "/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png",
-      description: "Durable stainless steel water bottle for daily hydration",
-      isNew: false,
-      category: "Accessories",
-    },
-    {
-      id: "3",
-      name: "Vintage Poster Print",
-      price: 15,
-      image: "/lovable-uploads/a5baf921-1082-4125-8cc8-ccb252062a6b.png",
-      description: "Classic vintage-style poster for wall decoration",
-      isNew: true,
-      category: "Art & Prints",
-    },
-    {
-      id: "4",
-      name: "Canvas Wall Art",
-      price: 35,
-      image: "/lovable-uploads/b0450473-ea7d-4288-a913-596c20960ef6.png",
-      description: "Beautiful canvas print for modern home decor",
-      isNew: false,
-      category: "Art & Prints",
-    },
-    {
-      id: "5",
-      name: "Classic Logo Tee",
-      price: 25,
-      image: "/lovable-uploads/17b70eb0-ff9a-4af8-80ad-5fdd4ab6d334.png",
-      description: "Timeless design t-shirt with classic logo",
-      isNew: false,
-      category: "Clothing",
-    },
-    {
-      id: "6",
-      name: "Coffee Mug Set",
-      price: 18,
-      image: "/lovable-uploads/d9f0f475-294a-4fe4-83c0-fd9f0e3d324b.png",
-      description: "Ceramic coffee mug perfect for morning coffee",
-      isNew: true,
-      category: "Home & Living",
-    },
-    {
-      id: "7",
-      name: "Comfort Hoodie",
-      price: 42,
-      image: "/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png",
-      description: "Cozy pullover hoodie for casual comfort",
-      isNew: true,
-      category: "Clothing",
-    },
-    {
-      id: "8",
-      name: "Travel Tumbler",
-      price: 24,
-      image: "/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png",
-      description: "Insulated tumbler perfect for hot and cold drinks",
-      isNew: false,
-      category: "Accessories",
-    },
-    {
-      id: "9",
-      name: "Art Print Collection",
-      price: 20,
-      image: "/lovable-uploads/b0450473-ea7d-4288-a913-596c20960ef6.png",
-      description: "Curated art print collection for your space",
-      isNew: true,
-      category: "Art & Prints",
-    },
+        const { data, error } = await supabase
+          .from("products")
+          .select("*")
+          .eq("store_id", import.meta.env.VITE_STORE_ID || "")
+          .eq("isdrop", false) // Only fetch non-drop products
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        // Transform Supabase data to match our Product interface
+        const transformedProducts: Product[] = (
+          data as Tables<"products">[]
+        ).map((product) => ({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image_url || "/placeholder.svg",
+          description: product.description || "",
+          isNew: isProductNew(product.created_at),
+          category: "Clothing", // Default category - you might want to add a category field to your database
+        }));
+
+        setProducts(transformedProducts);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError("Failed to load products");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  // Helper function to determine if a product is new (created within last 30 days)
+  const isProductNew = (createdAt: string | null): boolean => {
+    if (!createdAt) return false;
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    return new Date(createdAt) > thirtyDaysAgo;
+  };
+
+  // Extract unique categories from products
+  const categories = [
+    "All",
+    ...Array.from(
+      new Set(products.map((product) => product.category).filter(Boolean))
+    ),
   ];
+
+  // Sort products based on selected option
+  const getSortedProducts = (products: Product[]): Product[] => {
+    switch (sortBy) {
+      case "price-low-high":
+        return [...products].sort((a, b) => a.price - b.price);
+      case "price-high-low":
+        return [...products].sort((a, b) => b.price - a.price);
+      case "newest":
+        return [...products].sort((a, b) => {
+          // Products marked as new come first, then by name
+          if (a.isNew && !b.isNew) return -1;
+          if (!a.isNew && b.isNew) return 1;
+          return a.name.localeCompare(b.name);
+        });
+      case "featured":
+      default:
+        return products; // Default order from database
+    }
+  };
 
   const filteredProducts =
     selectedCategory === "All"
-      ? allProducts
-      : allProducts.filter((product) => product.category === selectedCategory);
+      ? getSortedProducts(products)
+      : getSortedProducts(
+          products.filter((product) => product.category === selectedCategory)
+        );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="flex items-center justify-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Error Loading Products
+            </h2>
+            <p className="text-gray-600">{error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -102,11 +127,15 @@ const ProductsPage = () => {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold">All Products</h1>
           <div className="flex items-center space-x-4">
-            <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-              <option>Sort by: Featured</option>
-              <option>Price: Low to High</option>
-              <option>Price: High to Low</option>
-              <option>Newest</option>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+            >
+              <option value="featured">Sort by: Featured</option>
+              <option value="price-low-high">Price: Low to High</option>
+              <option value="price-high-low">Price: High to Low</option>
+              <option value="newest">Newest</option>
             </select>
           </div>
         </div>
@@ -130,11 +159,22 @@ const ProductsPage = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {products.length === 0 ? (
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              No Products Found
+            </h2>
+            <p className="text-gray-600">
+              There are no products available at the moment. Check back later!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
