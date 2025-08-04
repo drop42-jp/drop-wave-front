@@ -1,5 +1,4 @@
 import { Star } from 'lucide-react';
-
 const HeroSection = () => {
   return (
     <div className="relative bg-gradient-to-br from-gray-50 to-white py-8 overflow-hidden">
@@ -8,18 +7,18 @@ const HeroSection = () => {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
-            Discover the latest and most stylish t-shirts. Comfort meets fashion in every design.
+            Discover Premium Fashion That Defines Your Unique Identity
           </p>
 
           <div className="flex items-center justify-center space-x-6 text-sm text-gray-500">
             <div className="flex items-center space-x-1">
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              <span>Premium T-Shirt Collections</span>
+              <span>Unique Designs</span>
             </div>
             <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div>Free Shipping Over $50</div>
+            <div>High-Quality Prints</div>
             <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div>Global T-Shirt Delivery</div>
+            <div>Fast Shipping</div>
           </div>
         </div>
       </div>
