@@ -22,20 +22,17 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground text-sm font-bold">
-                CT
-              </span>
+              <img src="https://drop42-dev.s3.us-east-1.amazonaws.com/printify-images/800x800-2463523--76df8614-e516-41a0-993ffc88d5295fae--0--443108--surusocialmediaart1.png" alt="NP Logo" className="w-full h-full rounded-full" />
             </div>
             <span className="text-xl font-bold text-foreground">
-              Charlotte Todd
+              NP store
             </span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/drops"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
+              className="text-muted-foreground hover:text-foreground transition-colors"            >
               Drops
             </Link>
             <Link

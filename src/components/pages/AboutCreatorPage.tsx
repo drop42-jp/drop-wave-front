@@ -12,13 +12,13 @@ const AboutCreatorPage = () => {
   const featuredDrops = [
     {
       id: '1',
-      title: 'Spring Awakening',
+      title: 'Limited Edition Tees',
       status: 'coming-soon',
       image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&h=300&fit=crop'
     },
     {
       id: '2',
-      title: 'Summer Vibes',
+      title: 'Premium Hoodies',
       status: 'live',
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=300&h=300&fit=crop'
     }
@@ -30,12 +30,12 @@ const AboutCreatorPage = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="w-32 h-32 bg-gradient-to-br from-gray-800 to-black rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
-            <span className="text-white text-4xl font-bold">CT</span>
+            <span className="text-white text-4xl font-bold">MS</span>
           </div>
           
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Charlotte Todd</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Merch Store</h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Digital artist and designer creating unique, limited-edition pieces that blend modern aesthetics with timeless appeal.
+            Premium merchandise and apparel brand creating high-quality, limited-edition pieces for style-conscious customers.
           </p>
 
           {/* Social Links */}
@@ -45,8 +45,7 @@ const AboutCreatorPage = () => {
               return (
                 <a
                   key={social.platform}
-                  href={social.url}
-                  className="flex items-center space-x-2 px-4 py-2 border border-gray-200 rounded-lg hover:border-gray-300 hover:bg-gray-50 transition-colors group"
+                  href={social.url}                  className="flex items-center space-x-2 px-4 py-2 border border-gray-200 rounded-lg hover:border-gray-300 hover:bg-gray-50 transition-colors group"
                 >
                   <IconComponent className="w-5 h-5 text-gray-600 group-hover:text-gray-900" />
                   <div className="text-left">
@@ -121,7 +120,7 @@ const AboutCreatorPage = () => {
 
         {/* Featured Work */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Featured Drops</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Featured Merch</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {featuredDrops.map((drop) => (
               <Link
@@ -133,8 +132,7 @@ const AboutCreatorPage = () => {
                   <img
                     src={drop.image}
                     alt={drop.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"                  />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -157,11 +155,11 @@ const AboutCreatorPage = () => {
         <div className="text-center bg-black text-white rounded-2xl p-8">
           <h2 className="text-2xl font-bold mb-4">Let's Connect</h2>
           <p className="text-gray-300 mb-6 max-w-md mx-auto">
-            Have a question about my work or want to collaborate? I'd love to hear from you.
+            Have questions about our merch or want to collaborate? We'd love to hear from you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:hello@charlottetodd.com"
+              href="mailto:hello@merchstore.com"
               className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
             >
               Get in Touch
@@ -170,7 +168,7 @@ const AboutCreatorPage = () => {
               to="/"
               className="border border-gray-600 text-white px-6 py-3 rounded-lg font-medium hover:border-gray-400 transition-colors"
             >
-              View Latest Drops
+              Shop Latest Merch
             </Link>
           </div>
         </div>
