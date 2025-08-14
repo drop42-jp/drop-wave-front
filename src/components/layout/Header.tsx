@@ -22,20 +22,17 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground text-sm font-bold">
-                CT
-              </span>
+              <img src="https://plus.unsplash.com/premium_photo-1749751600727-3fb5c8af5c29?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="NP Logo" className="w-full h-full rounded-full" />
             </div>
             <span className="text-xl font-bold text-foreground">
-              Charlotte Todd
+              NP
             </span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/drops"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
+              className="text-muted-foreground hover:text-foreground transition-colors"            >
               Drops
             </Link>
             <Link
@@ -100,13 +97,6 @@ const Header = () => {
               </Link>
               <Link
                 to="/products"
-                className="block text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Products
-              </Link>
-              <Link
-                to="/about"
                 className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
