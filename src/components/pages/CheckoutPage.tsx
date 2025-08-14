@@ -180,7 +180,6 @@ const CheckoutPage = () => {
           allowedCountries: ["US", "CA", "GB"], // Add more countries as needed
         },
       };
-
       const response = await fetch(
         "https://api.drop42.jtpk.app/stripe/checkout-session",
         {
@@ -508,11 +507,11 @@ const CheckoutPage = () => {
                 Order Summary
               </h2>
 
-              <div className="space-y-4 mb-6">
+              <div className="grid grid-cols-1 gap-4 mb-6">
                 {items.map((item) => (
                   <div
                     key={`${item.id}-${item.size}-${item.color}`}
-                    className="flex space-x-4"
+                    className="flex items-center space-x-4"
                   >
                     <img
                       src={item.image}

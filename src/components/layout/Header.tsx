@@ -22,12 +22,10 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground text-sm font-bold">
-                CT
-              </span>
+              <img src="https://drop42-dev.s3.us-east-1.amazonaws.com/printify-images/1754896800-e90adbc96147-0_720.png" alt="NP Logo" className="w-full h-full rounded-full" />
             </div>
             <span className="text-xl font-bold text-foreground">
-              Charlotte Todd
+              NP
             </span>
           </Link>
 
@@ -100,13 +98,6 @@ const Header = () => {
               </Link>
               <Link
                 to="/products"
-                className="block text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Products
-              </Link>
-              <Link
-                to="/about"
                 className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >

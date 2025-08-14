@@ -94,23 +94,23 @@ const AboutCreatorPage = () => {
         {/* Philosophy Section */}
         <div className="bg-gray-50 rounded-2xl p-8 mb-16">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Design Philosophy</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-black rounded-full mx-auto mb-4 flex items-center justify-center">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 bg-black rounded-full mb-4 flex items-center justify-center">
                 <span className="text-white font-bold">1</span>
               </div>
               <h3 className="font-semibold mb-2">Intentional</h3>
               <p className="text-sm text-gray-600">Every element serves a purpose and tells part of the story.</p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-black rounded-full mx-auto mb-4 flex items-center justify-center">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 bg-black rounded-full mb-4 flex items-center justify-center">
                 <span className="text-white font-bold">2</span>
               </div>
               <h3 className="font-semibold mb-2">Timeless</h3>
               <p className="text-sm text-gray-600">Designs that transcend trends and remain relevant.</p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-black rounded-full mx-auto mb-4 flex items-center justify-center">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 bg-black rounded-full mb-4 flex items-center justify-center">
                 <span className="text-white font-bold">3</span>
               </div>
               <h3 className="font-semibold mb-2">Connected</h3>
