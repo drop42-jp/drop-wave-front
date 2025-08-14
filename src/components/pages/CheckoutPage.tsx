@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Lock } from "lucide-react";
+import { ArrowLeft, Lock, Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
@@ -25,7 +25,6 @@ interface CheckoutForm {
   state: string;
   zipCode: string;
   country: string;
-  createAccount?: boolean;
   password?: string;
 }
 
@@ -35,8 +34,8 @@ interface StripeCheckoutRequest {
       currency: string;
       productData: {
         name: string;
-        description?: string;
-        images?: string[];
+        description: string;
+        images: string[];
       };
       unitAmount: number;
     };
@@ -180,7 +179,6 @@ const CheckoutPage = () => {
           allowedCountries: ["US", "CA", "GB"], // Add more countries as needed
         },
       };
-
       const response = await fetch(
         "https://api.drop42.jtpk.app/stripe/checkout-session",
         {
@@ -419,11 +417,7 @@ const CheckoutPage = () => {
                             <FormItem>
                               <FormLabel>Country</FormLabel>
                               <FormControl>
-                                <Input
-                                  placeholder="Country"
-                                  defaultValue="United States"
-                                  {...field}
-                                />
+                                <Input placeholder="Country" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -433,7 +427,6 @@ const CheckoutPage = () => {
                     </div>
                   </div>
 
-                  {/* Account Creation Option for Guests */}
                   {!isAuthenticated && (
                     <div className="border-t border-gray-200 pt-6">
                       <div className="flex items-center space-x-3 mb-4">
@@ -465,12 +458,13 @@ const CheckoutPage = () => {
                               : false,
                             minLength: {
                               value: 6,
-                              message: "Password must be at least 6 characters",
+                              message:
+                                "Password must be at least 6 characters",
                             },
                           }}
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Create password</FormLabel>
+                              <FormLabel>Password</FormLabel>
                               <FormControl>
                                 <Input
                                   type="password"

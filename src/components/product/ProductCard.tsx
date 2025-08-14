@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Heart, ShoppingBag } from 'lucide-react';
 import { useState } from 'react';
+import { useCart } from '../../context/CartContext';
 
 interface Product {
   id: string;
@@ -19,6 +20,19 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      quantity: 1
+    });
+  };
 
   return (
     <div className="group relative bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100">
@@ -29,7 +43,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          
           {product.isNew && (
             <span className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium">
               New
@@ -51,7 +64,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
 
           <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-            <button className="p-2 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition-colors">
+            <button 
+              onClick={handleAddToCart}
+              className="p-2 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition-colors"
+            >
               <ShoppingBag className="w-4 h-4" />
             </button>
           </div>
