@@ -22,12 +22,10 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground text-sm font-bold">
-                CT
-              </span>
+              <img src="/logo.png" alt="Cyphers Merch" className="w-full h-full object-contain" />
             </div>
             <span className="text-xl font-bold text-foreground">
-              Charlotte Todd
+              Cyphers Merch
             </span>
           </Link>
 
