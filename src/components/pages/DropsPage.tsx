@@ -37,6 +37,15 @@ const DropsPage = () => {
     return "ended";
   };
 
+  // Filter drops based on selected category
+  const filteredDrops = drops.filter((drop) => {
+    if (selectedCategory === "All") return true;
+    if (selectedCategory === "Live") return drop.status === "live";
+    if (selectedCategory === "Coming Soon") return drop.status === "coming-soon";
+    if (selectedCategory === "Ended") return drop.status === "ended";
+    return true;
+  });
+
   // Fetch drops from Supabase
   useEffect(() => {
     const fetchDrops = async () => {
@@ -94,25 +103,9 @@ const DropsPage = () => {
     fetchDrops();
   }, []);
 
-  const filteredDrops =
-    selectedCategory === "All"
-      ? drops
-      : drops.filter((drop) => {
-          switch (selectedCategory) {
-            case "Live":
-              return drop.status === "live";
-            case "Coming Soon":
-              return drop.status === "coming-soon";
-            case "Ended":
-              return drop.status === "ended";
-            default:
-              return true;
-          }
-        });
-
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
@@ -124,7 +117,7 @@ const DropsPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
@@ -138,7 +131,7 @@ const DropsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex items-center space-x-2 mb-6">
           <Clock className="w-5 h-5 text-orange-500" />

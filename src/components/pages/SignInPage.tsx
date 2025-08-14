@@ -85,23 +85,22 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link
           to="/"
-          className="flex items-center justify-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors mb-8"
+          className="flex items-center justify-center space-x-2 text-gray-300 hover:text-white transition-colors mb-8"
         >
           <ArrowLeft className="w-5 h-5" />
           <span>Back to store</span>
         </Link>
 
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900">
+          <h2 className="text-3xl font-bold text-white">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Or{" "}
-            <Link
+          <p className="mt-2 text-sm text-gray-300">
+            Or{" "}            <Link
               to="/signup"
               className="font-medium text-black hover:underline"
             >
@@ -177,10 +176,10 @@ const SignInPage = () => {
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
+              <div className="w-full border-t border-gray-600" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">
+              <span className="px-2 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-gray-300">
                 Or continue with email
               </span>
             </div>
@@ -200,8 +199,7 @@ const SignInPage = () => {
                     value: /^\S+@\S+$/i,
                     message: "Please enter a valid email",
                   },
-                }}
-                render={({ field }) => (
+                }}                render={({ field }) => (
                   <FormItem>
                     <FormLabel>Email address</FormLabel>
                     <FormControl>
@@ -253,8 +251,7 @@ const SignInPage = () => {
               </div>
 
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Signing in..." : "Sign in"}
-              </Button>
+                {isLoading ? "Signing in..." : "Sign in"}              </Button>
             </form>
           </Form>
         </div>

@@ -113,7 +113,7 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
       {/* Color Selection */}
       {product.colors && product.colors.length > 0 && (
         <div>
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Color</h3>
+          <h3 className="text-sm font-medium text-purple-100 mb-3">Color</h3>
           <div className="flex space-x-3">
             {product.colors.map((color) => (
               <button
@@ -121,8 +121,8 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
                 onClick={() => handleColorChange(color)}
                 className={`w-8 h-8 rounded-full border-2 transition-all ${
                   selectedColor?.name === color.name
-                    ? "border-black ring-2 ring-gray-300"
-                    : "border-gray-300 hover:border-gray-400"
+                    ? "border-purple-300 ring-2 ring-purple-400"
+                    : "border-purple-400 hover:border-purple-300"
                 }`}
                 style={{ backgroundColor: color.value }}
                 title={color.name}
@@ -130,15 +130,14 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
             ))}
           </div>
           {selectedColor && (
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-sm text-purple-200 mt-2">
               Selected: {selectedColor.name}
             </p>
           )}
         </div>
       )}
 
-      {/* Size Selection */}
-      <div>
+      {/* Size Selection */}      <div>
         <h3 className="text-sm font-medium text-gray-900 mb-3">Size</h3>
         <div className="flex space-x-2">
           {product.sizes.map((size) => (

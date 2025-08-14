@@ -180,7 +180,6 @@ const CheckoutPage = () => {
           allowedCountries: ["US", "CA", "GB"], // Add more countries as needed
         },
       };
-
       const response = await fetch(
         "https://api.drop42.jtpk.app/stripe/checkout-session",
         {
@@ -503,8 +502,8 @@ const CheckoutPage = () => {
 
           {/* Order Summary */}
           <div>
-            <div className="bg-white rounded-lg shadow p-6 sticky top-8">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">
+            <div className="bg-gradient-to-br from-indigo-800 to-purple-800 rounded-lg shadow-xl p-6 sticky top-8">
+              <h2 className="text-lg font-medium text-purple-100 mb-4">
                 Order Summary
               </h2>
 
@@ -520,13 +519,12 @@ const CheckoutPage = () => {
                       className="w-16 h-16 object-cover rounded-md"
                     />
                     <div className="flex-1">
-                      <h3 className="text-sm font-medium text-gray-900">
+                      <h3 className="text-sm font-medium text-purple-100">
                         {item.name}
                       </h3>
                       {item.size && (
-                        <p className="text-sm text-gray-600">
-                          Size: {item.size}
-                        </p>
+                        <p className="text-sm text-purple-200">
+                          Size: {item.size}                        </p>
                       )}
                       {item.color && (
                         <p className="text-sm text-gray-600">

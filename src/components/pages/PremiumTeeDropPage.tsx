@@ -129,15 +129,15 @@ const PremiumTeeDropPage = () => {
             </div>
 
             {/* Expected Stock Info */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <p className="text-sm font-medium text-blue-800">
+            <div className="bg-gradient-to-r from-purple-100 to-indigo-100 border border-purple-300 rounded-lg p-4">
+              <p className="text-sm font-medium text-purple-800">
                 Expected stock: {selectedVariant.expectedStock} units available when live
               </p>
             </div>
 
             {/* Variant Selection */}
             <div>
-              <h3 className="text-lg font-semibold mb-3">Choose Color</h3>
+              <h3 className="text-lg font-semibold mb-3 text-purple-100">Choose Color</h3>
               <div className="space-y-2">
                 {variants.map((variant) => (
                   <button
@@ -145,10 +145,9 @@ const PremiumTeeDropPage = () => {
                     onClick={() => handleVariantChange(variant)}
                     className={`w-full text-left p-3 rounded-lg border transition-colors ${
                       selectedVariant.id === variant.id
-                        ? 'border-black bg-gray-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
+                        ? 'border-purple-300 bg-purple-800/30'
+                        : 'border-purple-400 hover:border-purple-300'
+                    }`}                  >
                     <div className="flex justify-between items-center">
                       <span className="font-medium">{variant.name}</span>
                       <div className="text-right">

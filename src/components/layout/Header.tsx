@@ -17,17 +17,17 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-blue-900 to-purple-900 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
               <span className="text-primary-foreground text-sm font-bold">
-                CT
+                CS
               </span>
             </div>
             <span className="text-xl font-bold text-foreground">
-              Charlotte Todd
+              Cosmic Store
             </span>
           </Link>
 
@@ -89,7 +89,7 @@ const Header = () => {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-border bg-background">
+          <div className="md:hidden border-t border-border bg-gradient-to-r from-blue-900 to-purple-900">
             <nav className="px-4 py-4 space-y-4">
               <Link
                 to="/drops"

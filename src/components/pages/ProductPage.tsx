@@ -121,10 +121,10 @@ const ProductPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading product...</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-300 mx-auto"></div>
+          <p className="mt-4 text-purple-200">Loading product...</p>
         </div>
       </div>
     );
@@ -132,15 +132,14 @@ const ProductPage = () => {
 
   if (error || !product) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl font-bold text-purple-100 mb-4">
             Product Not Found
           </h2>
-          <p className="text-gray-600 mb-4">
-            {error || "The product you are looking for does not exist."}
-          </p>
-          <Link to="/" className="text-blue-600 hover:text-blue-800 underline">
+          <p className="text-purple-200 mb-4">
+            {error || "The product you are looking for does not exist."}          </p>
+          <Link to="/" className="text-purple-300 hover:text-purple-100 underline">
             Return to shop
           </Link>
         </div>
@@ -152,13 +151,13 @@ const ProductPage = () => {
     currentImages.length > 0 ? currentImages : product.images;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <div className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
+        <div className="flex items-center space-x-2 text-sm text-purple-200 mb-8">
           <Link
             to="/"
-            className="hover:text-gray-700 flex items-center space-x-1"
+            className="hover:text-purple-100 flex items-center space-x-1"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to shop</span>
@@ -168,8 +167,7 @@ const ProductPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <ProductImageGallery
             images={displayImages}
-            productName={product.name}
-          />
+            productName={product.name}          />
           <ProductInfo product={product} onColorChange={handleColorChange} />
         </div>
 
