@@ -8,18 +8,18 @@ const HeroSection = () => {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
-            Unique designs and limited drops. Express yourself with pieces that tell your story.
+            Discover the latest fashion trends and styles at Suri's Store.
           </p>
 
           <div className="flex items-center justify-center space-x-6 text-sm text-gray-500">
             <div className="flex items-center space-x-1">
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              <span>Limited Edition Drops</span>
+              <span>Premium Clothing Collections</span>
             </div>
             <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div>Free Shipping Over $50</div>
+            <div>Free Shipping Over $100</div>
             <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div>Worldwide Delivery</div>
+            <div>Global Clothing Delivery</div>
           </div>
         </div>
       </div>
