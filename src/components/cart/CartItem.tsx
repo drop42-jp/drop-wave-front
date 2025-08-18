@@ -1,5 +1,4 @@
-
-import { Plus, Minus, X } from 'lucide-react';
+import { Plus, Minus, X } from "lucide-react";
 
 interface CartItemProps {
   item: {
@@ -11,7 +10,12 @@ interface CartItemProps {
     color?: string;
     quantity: number;
   };
-  onUpdateQuantity: (id: string, quantity: number, size?: string, color?: string) => void;
+  onUpdateQuantity: (
+    id: string,
+    quantity: number,
+    size?: string,
+    color?: string
+  ) => void;
   onRemove: (id: string, size?: string, color?: string) => void;
 }
 
@@ -21,7 +25,7 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }: CartItemProps) => {
       <div className="flex items-start space-x-4">
         <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
           <img
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=200&h=200&fit=crop"
+            src={item.image || "/placeholder.svg"}
             alt={item.name}
             className="w-full h-full object-cover"
           />
@@ -42,7 +46,9 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }: CartItemProps) => {
         <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-2 border border-gray-200 rounded-lg">
             <button
-              onClick={() => onUpdateQuantity(item.id, item.quantity - 1, item.size)}
+              onClick={() =>
+                onUpdateQuantity(item.id, item.quantity - 1, item.size)
+              }
               className="p-2 hover:bg-gray-50 transition-colors"
             >
               <Minus className="w-4 h-4" />
@@ -51,7 +57,9 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }: CartItemProps) => {
               {item.quantity}
             </span>
             <button
-              onClick={() => onUpdateQuantity(item.id, item.quantity + 1, item.size)}
+              onClick={() =>
+                onUpdateQuantity(item.id, item.quantity + 1, item.size)
+              }
               className="p-2 hover:bg-gray-50 transition-colors"
             >
               <Plus className="w-4 h-4" />

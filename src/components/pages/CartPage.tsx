@@ -15,8 +15,8 @@ const CartPage = () => {
     loading,
   } = useCart();
 
-  const shippingCost = getTotalPrice() > 50 ? 0 : 8.99;
-  const totalWithShipping = getTotalPrice() + shippingCost;
+  const shippingCost = 0; // No shipping charges
+  const totalWithShipping = getTotalPrice(); // Total equals subtotal since shipping is free
 
   console.log("CartPage rendered, items count:", items.length);
 

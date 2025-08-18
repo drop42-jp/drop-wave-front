@@ -83,8 +83,8 @@ const CheckoutPage = () => {
 
   const isAuthenticated = !!user;
 
-  const shippingCost = getTotalPrice() > 50 ? 0 : 8.99;
-  const totalWithShipping = getTotalPrice() + shippingCost;
+  const shippingCost = 0; // No shipping charges
+  const totalWithShipping = getTotalPrice(); // Total equals subtotal since shipping is free
 
   const onSubmit = async (data: CheckoutForm) => {
     setIsLoading(true);
@@ -553,11 +553,7 @@ const CheckoutPage = () => {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Shipping</span>
-                  <span className="text-gray-900">
-                    {shippingCost === 0
-                      ? "Free"
-                      : `$${shippingCost.toFixed(2)}`}
-                  </span>
+                  <span className="text-green-600 font-medium">Free</span>
                 </div>
                 <div className="border-t border-gray-200 pt-2">
                   <div className="flex justify-between text-lg font-medium">
@@ -568,15 +564,6 @@ const CheckoutPage = () => {
                   </div>
                 </div>
               </div>
-
-              {getTotalPrice() < 50 && (
-                <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <p className="text-sm text-blue-800">
-                    Add ${(50 - getTotalPrice()).toFixed(2)} more for free
-                    shipping!
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>
