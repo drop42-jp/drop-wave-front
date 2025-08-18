@@ -37,7 +37,7 @@ const ProductsPage = () => {
           image: product.image_url || "/placeholder.svg",
           description: product.description || "",
           isNew: isProductNew(product.created_at),
-          category: "Clothing", // Default category - you might want to add a category field to your database
+          category: product.category || "Uncategorized", // Use actual category from database
         }));
 
         setProducts(transformedProducts);

@@ -13,10 +13,9 @@ const Homepage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [products, setProducts] = useState<Product[]>([]);
   const [drops, setDrops] = useState<Drop[]>([]);
+  const [categories, setCategories] = useState<string[]>(["All"]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const categories = ["All"];
 
   // Helper function to determine drop status based on dropdate
   const getDropStatus = (
@@ -120,10 +119,23 @@ const Homepage = () => {
           image: product.image_url || "/placeholder.svg",
           description: product.description || "",
           isNew: false, // You might want to add logic to determine if a product is new
-          category: "Clothing", // You might want to add a category field to your database
+          category: product.category || "Uncategorized", // Use actual category from database
         }));
 
         setProducts(transformedProducts);
+
+        // Extract unique categories from products and update categories state
+        const uniqueCategories = [
+          "All",
+          ...Array.from(
+            new Set(
+              transformedProducts
+                .map((product) => product.category)
+                .filter(Boolean) // Remove null/undefined categories
+            )
+          ),
+        ];
+        setCategories(uniqueCategories);
       } catch (err) {
         console.error("Error fetching products:", err);
         setError("Failed to load products");

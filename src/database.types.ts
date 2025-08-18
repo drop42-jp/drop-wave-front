@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -113,6 +113,54 @@ export type Database = {
           },
         ]
       }
+      generated_images: {
+        Row: {
+          created_at: string | null
+          id: string
+          image_type: string
+          openai_response_id: string | null
+          prompt: string | null
+          s3_url: string
+          store_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          image_type: string
+          openai_response_id?: string | null
+          prompt?: string | null
+          s3_url: string
+          store_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          image_type?: string
+          openai_response_id?: string | null
+          prompt?: string | null
+          s3_url?: string
+          store_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "generated_images_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "generated_images_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users_extended"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_items: {
         Row: {
           id: string
@@ -205,6 +253,7 @@ export type Database = {
           id: number
           images: string[] | null
           model: string | null
+          product_id: string | null
           title: string | null
         }
         Insert: {
@@ -214,6 +263,7 @@ export type Database = {
           id?: number
           images?: string[] | null
           model?: string | null
+          product_id?: string | null
           title?: string | null
         }
         Update: {
@@ -223,12 +273,14 @@ export type Database = {
           id?: number
           images?: string[] | null
           model?: string | null
+          product_id?: string | null
           title?: string | null
         }
         Relationships: []
       }
       products: {
         Row: {
+          category: string | null
           created_at: string | null
           description: string | null
           dropdate: string | null
@@ -243,6 +295,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
+          category?: string | null
           created_at?: string | null
           description?: string | null
           dropdate?: string | null
@@ -257,6 +310,7 @@ export type Database = {
           variant_id?: string | null
         }
         Update: {
+          category?: string | null
           created_at?: string | null
           description?: string | null
           dropdate?: string | null
@@ -385,6 +439,7 @@ export type Database = {
       }
       stores: {
         Row: {
+          ai_generation_complete: boolean
           created_at: string | null
           deployed_url: string | null
           id: string
@@ -395,6 +450,7 @@ export type Database = {
           user_id: string | null
         }
         Insert: {
+          ai_generation_complete?: boolean
           created_at?: string | null
           deployed_url?: string | null
           id?: string
@@ -405,6 +461,7 @@ export type Database = {
           user_id?: string | null
         }
         Update: {
+          ai_generation_complete?: boolean
           created_at?: string | null
           deployed_url?: string | null
           id?: string
@@ -511,9 +568,25 @@ export type Database = {
           },
         ]
       }
+      user_generated_images: {
+        Row: {
+          generated_images: Json | null
+          user_id: string
+        }
+        Insert: {
+          generated_images?: Json | null
+          user_id: string
+        }
+        Update: {
+          generated_images?: Json | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       users_extended: {
         Row: {
           created_at: string | null
+          domain: string | null
           fullName: string | null
           id: string
           instagramUrl: string | null
@@ -522,6 +595,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          domain?: string | null
           fullName?: string | null
           id: string
           instagramUrl?: string | null
@@ -530,6 +604,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          domain?: string | null
           fullName?: string | null
           id?: string
           instagramUrl?: string | null
@@ -607,6 +682,63 @@ export type Database = {
         }
         Relationships: []
       }
+      wave_front_codes: {
+        Row: {
+          chunk_unique_id: string | null
+          content: string | null
+          created_at: string | null
+          embedding: string | null
+          id: string
+          metadata: Json | null
+          store_id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          chunk_unique_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          embedding?: string | null
+          id: string
+          metadata?: Json | null
+          store_id: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          chunk_unique_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          embedding?: string | null
+          id?: string
+          metadata?: Json | null
+          store_id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wave_front_codes_summary: {
+        Row: {
+          file_hash: string | null
+          file_name: string | null
+          id: string
+          summary: string | null
+        }
+        Insert: {
+          file_hash?: string | null
+          file_name?: string | null
+          id?: string
+          summary?: string | null
+        }
+        Update: {
+          file_hash?: string | null
+          file_name?: string | null
+          id?: string
+          summary?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -615,9 +747,9 @@ export type Database = {
       check_admin_status: {
         Args: { email_to_check: string }
         Returns: {
-          user_exists: boolean
-          is_admin: boolean
           admin_record_exists: boolean
+          is_admin: boolean
+          user_exists: boolean
         }[]
       }
       cleanup_expired_unsubscribe_tokens: {
@@ -647,6 +779,31 @@ export type Database = {
       is_admin_user: {
         Args: { user_id: string }
         Returns: boolean
+      }
+      match_printify_products: {
+        Args: {
+          match_count?: number
+          match_threshold?: number
+          query_embedding: string
+        }
+        Returns: {
+          content: string
+          id: number
+          metadata: Json
+          similarity: number
+        }[]
+      }
+      wave_front_match_codes: {
+        Args: { filter?: Json; query_embedding: string }
+        Returns: {
+          chunk_unique_id: string
+          content: string
+          id: string
+          metadata: Json
+          similarity: number
+          store_id: string
+          user_id: string
+        }[]
       }
     }
     Enums: {
