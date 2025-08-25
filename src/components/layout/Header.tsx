@@ -17,49 +17,48 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 backdrop-blur-md border-b border-yellow-400/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground text-sm font-bold">
-                CT
+            <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+              <span className="text-white text-sm font-bold">
+                🚀
               </span>
             </div>
-            <span className="text-xl font-bold text-foreground">
-              Charlotte Todd
+            <span className="text-xl font-bold text-white">
+              Niranjan Kids Toys
             </span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link
-              to="/drops"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Drops
+              to="/space-adventures"
+              className="text-yellow-200 hover:text-white transition-colors"            >
+              Space Adventures
             </Link>
             <Link
-              to="/products"
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              to="/galaxy-toys"
+              className="text-yellow-200 hover:text-white transition-colors"
             >
-              Products
+              Galaxy Toys
             </Link>
             <Link
-              to="/about"
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              to="/cosmic-crafts"
+              className="text-yellow-200 hover:text-white transition-colors"
             >
-              About
+              Cosmic Crafts
             </Link>
             <Link
               to={isAuthenticated ? "/account" : "/signin"}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="text-yellow-200 hover:text-white transition-colors"
             >
               {isAuthenticated ? "My Account" : "Sign In"}
             </Link>
             <Link to="/cart" className="relative">
-              <ShoppingBag className="w-6 h-6 text-muted-foreground hover:text-foreground transition-colors" />
+              <ShoppingBag className="w-6 h-6 text-yellow-200 hover:text-white transition-colors" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
@@ -68,16 +67,16 @@ const Header = () => {
 
           <div className="md:hidden flex items-center space-x-4">
             <Link to="/cart" className="relative">
-              <ShoppingBag className="w-6 h-6 text-muted-foreground" />
+              <ShoppingBag className="w-6 h-6 text-yellow-200" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
             </Link>
             <button
               onClick={toggleMobileMenu}
-              className="text-muted-foreground hover:text-foreground"
+              className="text-yellow-200 hover:text-white"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -89,32 +88,32 @@ const Header = () => {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-border bg-background">
+          <div className="md:hidden border-t border-yellow-400/50 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">
             <nav className="px-4 py-4 space-y-4">
               <Link
-                to="/drops"
-                className="block text-muted-foreground hover:text-foreground transition-colors"
+                to="/space-adventures"
+                className="block text-yellow-200 hover:text-white transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Drops
+                Space Adventures
               </Link>
               <Link
-                to="/products"
-                className="block text-muted-foreground hover:text-foreground transition-colors"
+                to="/galaxy-toys"
+                className="block text-yellow-200 hover:text-white transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Products
+                Galaxy Toys
               </Link>
               <Link
-                to="/about"
-                className="block text-muted-foreground hover:text-foreground transition-colors"
+                to="/cosmic-crafts"
+                className="block text-yellow-200 hover:text-white transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                About
+                Cosmic Crafts
               </Link>
               <Link
                 to={isAuthenticated ? "/account" : "/signin"}
-                className="block text-muted-foreground hover:text-foreground transition-colors"
+                className="block text-yellow-200 hover:text-white transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {isAuthenticated ? "My Account" : "Sign In"}

@@ -154,13 +154,12 @@ const AvailableSoonDropPage = () => {
             </div>
 
             <div className="text-center text-sm text-gray-600">
-              Be among the first to get this exclusive drop
+              Be among the first to get this exclusive gaming drop
             </div>
           </div>
         </div>
 
-        {/* More Info Section */}
-        <div className="text-center bg-gray-50 rounded-2xl p-8">
+        {/* More Info Section */}        <div className="text-center bg-gray-50 rounded-2xl p-8">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Don't Miss Out</h3>
           <p className="text-gray-600 mb-6">
             This is a limited drop with very few pieces available. Sign up for notifications to be the first to know when it goes live.

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Clock, Bell, Star, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -190,19 +189,16 @@ const PremiumTeeDropPage = () => {
                 </form>
               ) : (
                 <div className="text-center py-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Bell className="w-6 h-6 text-green-600" />
-                  </div>
                   <p className="font-medium text-gray-900">You're on the list!</p>
                   <p className="text-sm text-gray-600 mt-1">
-                    We'll email you as soon as this drop goes live.
+                    We'll email you as soon as this gaming drop goes live.
                   </p>
                 </div>
               )}
             </div>
 
             <div className="text-center text-sm text-gray-600">
-              Be among the first to get this limited edition tee
+              Be among the first to get this limited edition gaming tee
             </div>
           </div>
         </div>

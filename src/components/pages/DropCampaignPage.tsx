@@ -198,10 +198,10 @@ const DropCampaignPage = () => {
           </div>
           <p className="text-gray-600">
             {isLive &&
-              `Get it before it's gone! This limited edition drop ends soon.`}
+              `Get it before it's gone! This limited edition gaming drop ends soon.`}
             {isComingSoon &&
-              `Mark your calendars! This exclusive drop is coming soon.`}
-            {isEnded && `This drop has ended. Stay tuned for future releases!`}
+              `Mark your calendars! This exclusive esports drop is coming soon.`}
+            {isEnded && `This gaming drop has ended. Stay tuned for future esports releases!`}
           </p>
         </div>
 
@@ -214,8 +214,7 @@ const DropCampaignPage = () => {
           />
         </div>
 
-        {/* Related Products Section */}
-        {relatedProducts.length > 0 && (
+        {/* Related Products Section */}        {relatedProducts.length > 0 && (
           <div>
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
               Related Products

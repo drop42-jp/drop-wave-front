@@ -67,25 +67,12 @@ const OrdersPage = () => {
     } catch (error) {
       console.error("Error fetching orders:", error);
       toast({
-        title: "Error loading orders",
-        description: "Failed to load your order history. Please try again.",
+        title: "Error",
+        description: "Failed to fetch orders. Please try again.",
         variant: "destructive",
       });
     } finally {
       setLoading(false);
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "completed":
-        return "bg-green-100 text-green-800";
-      case "processing":
-        return "bg-blue-100 text-blue-800";
-      case "pending":
-        return "bg-yellow-100 text-yellow-800";
-      default:
-        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -98,11 +85,26 @@ const OrdersPage = () => {
   };
 
   const formatPrice = (price: number) => {
-    return `$${(price / 100).toFixed(2)}`;
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price);
   };
 
-  // Show loading state
-  if (authLoading || loading) {
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "completed":
+        return "bg-green-900 text-green-200";
+      case "processing":
+        return "bg-purple-900 text-purple-200";
+      case "pending":
+        return "bg-indigo-900 text-indigo-200";
+      default:
+        return "bg-gray-900 text-gray-200";
+    }
+  };
+
+  if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
