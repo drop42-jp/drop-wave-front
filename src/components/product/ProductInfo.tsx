@@ -121,8 +121,8 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
                 onClick={() => handleColorChange(color)}
                 className={`w-8 h-8 rounded-full border-2 transition-all ${
                   selectedColor?.name === color.name
-                    ? "border-black ring-2 ring-gray-300"
-                    : "border-gray-300 hover:border-gray-400"
+                    ? "border-green-600 ring-2 ring-green-300"
+                    : "border-gray-300 hover:border-green-400"
                 }`}
                 style={{ backgroundColor: color.value }}
                 title={color.name}
@@ -130,15 +130,12 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
             ))}
           </div>
           {selectedColor && (
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-sm text-green-600 mt-2">
               Selected: {selectedColor.name}
             </p>
           )}
         </div>
-      )}
-
-      {/* Size Selection */}
-      <div>
+      )}      <div>
         <h3 className="text-sm font-medium text-gray-900 mb-3">Size</h3>
         <div className="flex space-x-2">
           {product.sizes.map((size) => (

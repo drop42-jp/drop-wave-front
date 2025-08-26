@@ -57,7 +57,7 @@ const OrdersPage = () => {
         .eq("user_id", user!.id)
         .order("created_at", { ascending: false });
 
-      console.log("");
+      console.log("Orders data:", data);
 
       if (error) {
         throw error;
@@ -67,25 +67,12 @@ const OrdersPage = () => {
     } catch (error) {
       console.error("Error fetching orders:", error);
       toast({
-        title: "Error loading orders",
-        description: "Failed to load your order history. Please try again.",
+        title: "Error",
+        description: "Failed to load orders. Please try again.",
         variant: "destructive",
       });
     } finally {
       setLoading(false);
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "completed":
-        return "bg-green-100 text-green-800";
-      case "processing":
-        return "bg-blue-100 text-blue-800";
-      case "pending":
-        return "bg-yellow-100 text-yellow-800";
-      default:
-        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -98,13 +85,27 @@ const OrdersPage = () => {
   };
 
   const formatPrice = (price: number) => {
-    return `$${(price / 100).toFixed(2)}`;
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price);
   };
 
-  // Show loading state
-  if (authLoading || loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "completed":
+        return "bg-green-100 text-green-800";
+      case "processing":
+        return "bg-green-200 text-green-900";
+      case "pending":
+        return "bg-green-50 text-green-700";
+      default:
+        return "bg-green-100 text-green-800";
+    }
+  };
+
+  if (loading) {
+    return (      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading your orders...</p>

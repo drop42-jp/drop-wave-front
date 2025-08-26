@@ -23,19 +23,18 @@ const Header = () => {
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
               <span className="text-primary-foreground text-sm font-bold">
-                CT
+                W
               </span>
             </div>
             <span className="text-xl font-bold text-foreground">
-              Charlotte Todd
+              wildbloom
             </span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/drops"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
+              className="text-muted-foreground hover:text-foreground transition-colors"            >
               Drops
             </Link>
             <Link

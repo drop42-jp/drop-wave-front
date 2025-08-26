@@ -111,20 +111,12 @@ const ProductPage = () => {
     fetchProduct();
   }, [id]);
 
-  const handleColorChange = (color: {
-    name: string;
-    value: string;
-    images: string[];
-  }) => {
-    setCurrentImages(color.images);
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading product...</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-600 mx-auto"></div>
+          <p className="mt-4 text-green-600">Loading product...</p>
         </div>
       </div>
     );
@@ -137,9 +129,8 @@ const ProductPage = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
             Product Not Found
           </h2>
-          <p className="text-gray-600 mb-4">
-            {error || "The product you are looking for does not exist."}
-          </p>
+          <p className="text-green-600 mb-4">
+            {error || "The product you are looking for does not exist."}          </p>
           <Link to="/" className="text-blue-600 hover:text-blue-800 underline">
             Return to shop
           </Link>
