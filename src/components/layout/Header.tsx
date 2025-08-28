@@ -22,21 +22,19 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground text-sm font-bold">
-                CT
-              </span>
+              <img src="https://drop42-dev.s3.us-east-1.amazonaws.com/printify-images/snapback-embroidery.png" alt="Thames Logo" className="w-full h-full rounded-full" />
             </div>
             <span className="text-xl font-bold text-foreground">
-              Charlotte Todd
+              Thames
             </span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link
-              to="/drops"
+              to="/books"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Drops
+              Books
             </Link>
             <Link
               to="/products"
@@ -92,11 +90,11 @@ const Header = () => {
           <div className="md:hidden border-t border-border bg-background">
             <nav className="px-4 py-4 space-y-4">
               <Link
-                to="/drops"
+                to="/books"
                 className="block text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Drops
+                Books
               </Link>
               <Link
                 to="/products"
