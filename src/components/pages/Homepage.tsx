@@ -17,7 +17,6 @@ const Homepage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Helper function to determine drop status based on dropdate
   const getDropStatus = (
     dropdate: string | null
   ): "coming-soon" | "live" | "ended" => {
@@ -26,22 +25,18 @@ const Homepage = () => {
     const dropDateTime = new Date(dropdate);
     const now = new Date();
 
-    // If the drop date is in the future, it's coming soon
     if (dropDateTime > now) {
       return "coming-soon";
     }
 
-    // If the drop date is within the last 7 days, it's live
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     if (dropDateTime >= sevenDaysAgo) {
       return "live";
     }
 
-    // Otherwise, it's ended
     return "ended";
   };
 
-  // Fetch drops from Supabase
   useEffect(() => {
     const fetchDrops = async () => {
       try {
@@ -54,7 +49,6 @@ const Homepage = () => {
 
         if (error) throw error;
 
-        // Transform Supabase data to match our Drop interface
         const transformedDrops: Drop[] = (data as Tables<"products">[]).map(
           (product) => {
             const status = getDropStatus(product.dropdate);
@@ -66,13 +60,11 @@ const Homepage = () => {
               price: product.price,
             };
 
-            // Add startDate for coming-soon drops or endDate for live drops
             if (product.dropdate) {
               const dropDateTime = new Date(product.dropdate);
               if (status === "coming-soon") {
                 drop.startDate = dropDateTime;
               } else if (status === "live") {
-                // For live drops, set end date to 7 days after the drop date
                 drop.endDate = new Date(
                   dropDateTime.getTime() + 7 * 24 * 60 * 60 * 1000
                 );
@@ -93,23 +85,19 @@ const Homepage = () => {
     fetchDrops();
   }, []);
 
-  // Fetch products from Supabase
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        console.log("fetching products");
         const { data, error } = await supabase
           .from("products")
           .select("*")
           .eq("store_id", import.meta.env.VITE_STORE_ID || "")
-          .eq("isdrop", false) // Only fetch non-drop products for the products section
+          .eq("isdrop", false)
           .order("created_at", { ascending: false });
-        console.log(data);
 
         if (error) throw error;
 
-        // Transform Supabase data to match our Product interface
         const transformedProducts: Product[] = (
           data as Tables<"products">[]
         ).map((product) => ({
@@ -118,20 +106,19 @@ const Homepage = () => {
           price: product.price,
           image: product.image_url || "/placeholder.svg",
           description: product.description || "",
-          isNew: false, // You might want to add logic to determine if a product is new
-          category: product.category || "Uncategorized", // Use actual category from database
+          isNew: false,
+          category: product.category || "Uncategorized",
         }));
 
         setProducts(transformedProducts);
 
-        // Extract unique categories from products and update categories state
         const uniqueCategories = [
           "All",
           ...Array.from(
             new Set(
               transformedProducts
                 .map((product) => product.category)
-                .filter(Boolean) // Remove null/undefined categories
+                .filter(Boolean)
             )
           ),
         ];
@@ -191,7 +178,6 @@ const Homepage = () => {
       <HeroSection />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Category Tabs */}
         <div className="mb-8">
           <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
@@ -210,7 +196,6 @@ const Homepage = () => {
           </div>
         </div>
 
-        {/* Featured Drops Section */}
         <div className="mb-16">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-2">
@@ -229,7 +214,6 @@ const Homepage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {drops.length === 0 ? (
-              // Skeleton UI for when no drops are available
               <>
                 <div className="space-y-4">
                   <Skeleton className="w-full h-48 rounded-lg" />
@@ -254,7 +238,6 @@ const Homepage = () => {
           </div>
         </div>
 
-        {/* Featured Products Section */}
         <div>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">
